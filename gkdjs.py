@@ -1,8 +1,8 @@
-#Copyright Bail 2021
-#com.Bail.daysmatter.zkdjs 中考倒计时 v1.2_5
-#2021.3.16
+#Copyright Bail 2021-2023
+#com.Bail.daysmatter.zkdjs 高考倒计时 v1.3_6
+#2021.3.16-2023.3.18
 
-PURPOSE = (6,20)
+PURPOSE = (6,7)
 HELP = ''
 
 import time,sys,random
@@ -59,8 +59,10 @@ def day():
     mon,day = PURPOSE
     pur = totday(mon,day,isrun())
     delta = pur-now
-    return delta
+    return delta+366
 def sec():
+    print('功能暂未开放')
+    sys.exit(1)
     def year():
         if int(time.strftime('%m')) > 6:
             year = int(time.strftime('%Y'))+1
@@ -82,10 +84,10 @@ def close(iswait):
             input()
 def output(value,isday):
     if isday:
-        print('距中考还有{}天'.format(value))
+        print('距高考还有{}天'.format(value))
         print(cheer());print()
     else:
-        print('距中考还有{}秒'.format(value),end='\r')
+        print('距高考还有{}秒'.format(value),end='\r')
 def cheer():
     with open('sentences.txt') as file:
         sent = random.choice(file.readlines())
