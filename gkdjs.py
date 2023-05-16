@@ -1,6 +1,6 @@
 #Copyright Bail 2021-2023
-#com.Bail.daysmatter.zkdjs 高考倒计时 v1.3_6
-#2021.3.16-2023.3.18
+#com.Bail.daysmatter.zkdjs 高考倒计时 v1.3.1_7
+#2021.3.16-2023.5.16
 
 PURPOSE = (6,7)
 HELP = ''
@@ -89,7 +89,7 @@ def output(value,isday):
     else:
         print('距高考还有{}秒'.format(value),end='\r')
 def cheer():
-    with open('sentences.txt') as file:
+    with open('sentences.txt',encoding='utf-8') as file:
         sent = random.choice(file.readlines())
     return sent
 def main():
