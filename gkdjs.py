@@ -1,11 +1,11 @@
 #Copyright Bail 2021-2023
-#com.Bail.daysmatter.zkdjs 高考倒计时 v1.3.1_7
-#2021.3.16-2023.5.16
+#com.Bail.daysmatter.zkdjs 高考倒计时 v1.4_8
+#2021.3.16-2023.6.28
 
 PURPOSE = (6,7)
 HELP = ''
 
-import time,sys,random
+import time,sys,random,os
 
 def getarg():
     if len(sys.argv) == 1:
@@ -15,6 +15,8 @@ def getarg():
             return 's'
         elif sys.argv[1] == '-q':
             return 'q'
+        elif sys.argv[1] == '-n':
+            return 'n'
         else:
             print(HELP)
             exit(1)
@@ -81,11 +83,15 @@ def close(iswait):
             time.sleep(1)
         sys.exit(0)
     else:
-            input()
+        input()
 def output(value,isday):
     if isday:
-        print('距高考还有{}天'.format(value))
-        print(cheer());print()
+        if getarg() == 'n':
+            os.system(f'notify-send -a gkdjs -i python3 -t 3000000 距高考还有{value}天 "{cheer()}"')
+            sys.exit(0)
+        else:
+            print('距高考还有{}天'.format(value))
+            print(cheer());print()
     else:
         print('距高考还有{}秒'.format(value),end='\r')
 def cheer():
