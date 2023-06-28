@@ -91,7 +91,7 @@ def output(value,isday):
             sys.exit(0)
         else:
             print('距高考还有{}天'.format(value))
-            print(cheer());print()
+            print(cheer())
     else:
         print('距高考还有{}秒'.format(value),end='\r')
 def cheer():
