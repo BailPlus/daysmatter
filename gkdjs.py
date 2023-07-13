@@ -61,7 +61,7 @@ def day():
     mon,day = PURPOSE
     pur = totday(mon,day,isrun())
     delta = pur-now
-    return delta+366
+    return delta
 def sec():
     print('功能暂未开放')
     sys.exit(1)
