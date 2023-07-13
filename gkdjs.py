@@ -63,8 +63,6 @@ def day():
     delta = pur-now
     return delta
 def sec():
-    print('功能暂未开放')
-    sys.exit(1)
     def year():
         if int(time.strftime('%m')) > 6:
             year = int(time.strftime('%Y'))+1
