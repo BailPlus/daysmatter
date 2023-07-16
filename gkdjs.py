@@ -1,8 +1,8 @@
 #Copyright Bail 2021-2023
-#com.Bail.daysmatter.zkdjs 高考倒计时 v1.4_8
-#2021.3.16-2023.6.28
+#com.Bail.daysmatter.zkdjs 高考倒计时 v1.4.2_10
+#2021.3.16-2023.7.16
 
-PURPOSE = (6,7)
+PURPOSE = (6,7) #目标日
 HELP = ''
 
 import time,sys,random,os
@@ -20,8 +20,17 @@ def getarg():
         else:
             print(HELP)
             exit(1)
-def isrun():
-    year = int(time.strftime('%Y'))
+def getdate()->tuple:
+    '''获取当前日期
+返回值：当前日期元组，整型，依次为年，月，日(tuple)
+※注意：返回的年份为等效年份：
+[1,PURPOSE[0]]月为当前年份，
+(PURPOSE[0],12]月为下一年份'''
+    year,mon,day = map(int,time.strftime('%Y.%m.%d').split('.'))
+    if mon > PURPOSE[0]:
+        year += 1
+    return year,mon,day
+def isrun(year:int):
     if year%4 == 0 and year%100 != 0:
         return True
     elif year%400 == 0:
@@ -29,8 +38,6 @@ def isrun():
     else:
         return False
 def totday(m,d,tue):
-    m = int(m)
-    d = int(d)
     if m == 7:
         return d-184
     elif m == 8:
@@ -56,21 +63,15 @@ def totday(m,d,tue):
     elif m == 6:
         return 151+tue+d
 def day():
-    mon,day = time.strftime('%m.%d').split('.')
-    now = totday(mon,day,isrun())
-    mon,day = PURPOSE
-    pur = totday(mon,day,isrun())
+    year,mon,day = getdate()
+    now = totday(mon,day,isrun(year))
+    pur = totday(*PURPOSE,isrun(year))
     delta = pur-now
     return delta
 def sec():
-    def year():
-        if int(time.strftime('%m')) > 6:
-            year = int(time.strftime('%Y'))+1
-        else:
-            year = int(time.strftime('%Y'))
-        return year
+    year = getdate()[0]
     now = time.time()
-    pur = int(time.mktime(time.strptime('{}.{}.{}'.format(year(),PURPOSE[0],PURPOSE[1]),'%Y.%m.%d')))
+    pur = int(time.mktime(time.strptime('{}.{}.{}'.format(year,PURPOSE[0],PURPOSE[1]),'%Y.%m.%d')))
     delta = pur-now
     return delta
 def close(iswait):
